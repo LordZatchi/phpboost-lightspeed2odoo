@@ -1,0 +1,13 @@
+# PHPBoost cache / logs / uploads
+.cache/
+logs/
+uploads/
+
+# IDEs
+.vscode/
+.vscode/sftp.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
