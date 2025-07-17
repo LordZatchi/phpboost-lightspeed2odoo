@@ -22,28 +22,28 @@ class LightspeedtoOdooAdminConfigController extends AdminModuleController
 		{
 			$this->save_config();
 			$this->form->get_field_by_id('odoo_password')->set_hidden();
-			AppContext::get_response()->redirect(LightspeedtoOdooUrlBuilder::configuration(), LangLoader::get_message('warning.success.config', 'warning-lang'));
+			AppContext::get_response()->redirect(LightspeedtoOdooUrlBuilder::admin_config(), LangLoader::get_message('warning.success.config', 'warning-lang'));
 		}
 
 		$this->view->put('CONTENT', $this->form->display());
 
-		return new AdminLightspeedtoOdooDisplayResponse($this->view, $this->lang['lightspeedto_odoo.config.module.title']);
+		return new AdminLightspeedtoOdooDisplayResponse($this->view, $this->lang['lightspeedto_odoo.config.title']);
 	}
 
 	private function init()
 	{
-		$this->lang = LangLoader::get_all_langs('lightspeedto_odoo');
+		$this->lang = LangLoader::get('lightspeedto_odoo');
 	}
 
 	private function build_form()
 	{
 		$form = new HTMLForm(__CLASS__);
-		$form->set_layout_title($this->lang['lightspeedto_odoo.config.module.title']);
+		$form->set_layout_title($this->lang['lightspeedto_odoo.config.title']);
 
 		$config = LightspeedtoOdooConfig::load();
 
 		// Configuration Odoo
-		$fieldset = new FormFieldsetHTML('odoo_config', $this->lang['lightspeedto_odoo.config.odoo.settings']);
+		$fieldset = new FormFieldsetHTML('odoo_config', $this->lang['lightspeedto_odoo.config.odoo.connection']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('odoo_url', $this->lang['lightspeedto_odoo.config.odoo.url'], $config->get_odoo_url(),
@@ -66,12 +66,20 @@ class LightspeedtoOdooAdminConfigController extends AdminModuleController
 			array('description' => $this->lang['lightspeedto_odoo.config.odoo.api_key.clue'])
 		));
 
-		// Configuration du mapping
-		$fieldset = new FormFieldsetHTML('mapping_config', $this->lang['lightspeedto_odoo.config.mapping.settings']);
+		// Configuration du module
+		$fieldset = new FormFieldsetHTML('module_config', $this->lang['lightspeedto_odoo.config.module_settings']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldNumberEditor('default_mapping_id', $this->lang['lightspeedto_odoo.config.default_mapping'], $config->get_default_mapping_id(),
-			array('description' => $this->lang['lightspeedto_odoo.config.default_mapping.clue'], 'min' => 0)
+		$fieldset->add_field(new FormFieldNumberEditor('max_file_size', $this->lang['lightspeedto_odoo.config.max_file_size'], $config->get_max_file_size(),
+			array('description' => $this->lang['lightspeedto_odoo.config.max_file_size.clue'], 'min' => 1, 'max' => 100)
+		));
+
+		$fieldset->add_field(new FormFieldNumberEditor('timeout', $this->lang['lightspeedto_odoo.config.timeout'], $config->get_timeout(),
+			array('description' => $this->lang['lightspeedto_odoo.config.timeout.clue'], 'min' => 10, 'max' => 300)
+		));
+
+		$fieldset->add_field(new FormFieldCheckbox('enable_logging', $this->lang['lightspeedto_odoo.config.enable_logging'], $config->is_logging_enabled(),
+			array('description' => $this->lang['lightspeedto_odoo.config.enable_logging.clue'])
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('auto_detect_mapping', $this->lang['lightspeedto_odoo.config.auto_detect_mapping'], $config->is_auto_detect_mapping_enabled(),
@@ -92,7 +100,7 @@ class LightspeedtoOdooAdminConfigController extends AdminModuleController
 		$fieldset->add_field(new FormFieldAuthorizationsUser('authorizations', $this->lang['form.authorizations'], $auth_settings, $config->get_authorizations()));
 
 		// Test de connexion
-		$fieldset = new FormFieldsetHTML('test_connection', $this->lang['lightspeedto_odoo.config.test.connection']);
+		$fieldset = new FormFieldsetHTML('test_connection', $this->lang['lightspeedto_odoo.config.test_connection']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldFree('test_button', $this->lang['lightspeedto_odoo.config.test.button'], 
@@ -116,8 +124,12 @@ class LightspeedtoOdooAdminConfigController extends AdminModuleController
 		$config->set_odoo_username($this->form->get_value('odoo_username'));
 		$config->set_odoo_password($this->form->get_value('odoo_password'));
 		$config->set_odoo_api_key($this->form->get_value('odoo_api_key'));
-		$config->set_default_mapping_id($this->form->get_value('default_mapping_id'));
 		
+		if ($this->form->get_value('enable_logging'))
+			$config->enable_logging();
+		else
+			$config->disable_logging();
+			
 		if ($this->form->get_value('auto_detect_mapping'))
 			$config->enable_auto_detect_mapping();
 		else
@@ -130,7 +142,7 @@ class LightspeedtoOdooAdminConfigController extends AdminModuleController
 		HooksService::execute_hook_action('edit_config', 'lightspeedto_odoo', array(
 			'title' => StringVars::replace_vars($this->lang['form.module.title'], 
 				array('module_name' => $this->lang['lightspeedto_odoo.module.title'])), 
-			'url' => LightspeedtoOdooUrlBuilder::configuration()->rel()
+			'url' => LightspeedtoOdooUrlBuilder::admin_config()->rel()
 		));
 	}
 }
@@ -141,10 +153,10 @@ class AdminLightspeedtoOdooDisplayResponse extends AdminMenuDisplayResponse
 	{
 		parent::__construct($view);
 
-		$lang = LangLoader::get_all_langs('lightspeedto_odoo');
+		$lang = LangLoader::get('lightspeedto_odoo');
 
 		$this->add_link($lang['lightspeedto_odoo.module.title'], LightspeedtoOdooUrlBuilder::home());
-		$this->add_link($lang['lightspeedto_odoo.config.title'], LightspeedtoOdooUrlBuilder::configuration());
+		$this->add_link($lang['lightspeedto_odoo.config.title'], LightspeedtoOdooUrlBuilder::admin_config());
 		$this->add_link($lang['lightspeedto_odoo.mappings.title'], LightspeedtoOdooUrlBuilder::mappings());
 
 		$this->get_graphical_environment()->set_page_title($page_title);

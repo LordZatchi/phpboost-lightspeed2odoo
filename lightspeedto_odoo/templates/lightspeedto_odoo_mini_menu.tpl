@@ -4,7 +4,7 @@
 			<h6 class="cell-name">
 				<a href="{U_HOME}">
 					<i class="fa fa-exchange" aria-hidden="true"></i>
-					{@lightspeedto_odoo.module.title}
+					{lightspeedto_odoo.module.title}
 				</a>
 			</h6>
 		</div>
@@ -19,7 +19,7 @@
 						</div>
 						<div class="mini-stat-content">
 							<div class="mini-stat-value">{TOTAL_UPLOADS}</div>
-							<div class="mini-stat-label">{@lightspeedto_odoo.mini.total_uploads}</div>
+							<div class="mini-stat-label">{lightspeedto_odoo.mini.total_uploads}</div>
 						</div>
 					</div>
 
@@ -29,7 +29,7 @@
 						</div>
 						<div class="mini-stat-content">
 							<div class="mini-stat-value">{COMPLETED_UPLOADS}</div>
-							<div class="mini-stat-label">{@lightspeedto_odoo.mini.completed}</div>
+							<div class="mini-stat-label">{lightspeedto_odoo.mini.completed}</div>
 						</div>
 					</div>
 
@@ -39,7 +39,7 @@
 						</div>
 						<div class="mini-stat-content">
 							<div class="mini-stat-value">{TOTAL_PROCESSED_ROWS}</div>
-							<div class="mini-stat-label">{@lightspeedto_odoo.mini.processed_rows}</div>
+							<div class="mini-stat-label">{lightspeedto_odoo.mini.processed_rows}</div>
 						</div>
 					</div>
 				</div>
@@ -49,14 +49,14 @@
 					# IF C_HAS_PENDING #
 						<div class="mini-alert warning">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<span>{PENDING_UPLOADS} {@lightspeedto_odoo.mini.pending}</span>
+							<span>{PENDING_UPLOADS} {lightspeedto_odoo.mini.pending}</span>
 						</div>
 					# ENDIF #
 
 					# IF C_HAS_PROCESSING #
 						<div class="mini-alert processing">
 							<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-							<span>{PROCESSING_UPLOADS} {@lightspeedto_odoo.mini.processing}</span>
+							<span>{PROCESSING_UPLOADS} {lightspeedto_odoo.mini.processing}</span>
 						</div>
 					# ENDIF #
 				</div>
@@ -66,18 +66,18 @@
 					# IF C_CAN_UPLOAD #
 						<a href="{U_UPLOAD}" class="mini-action upload">
 							<i class="fa fa-upload" aria-hidden="true"></i>
-							<span>{@lightspeedto_odoo.mini.upload}</span>
+							<span>{lightspeedto_odoo.mini.upload}</span>
 						</a>
 					# ENDIF #
 
 					<a href="{U_MAPPINGS}" class="mini-action mappings">
 						<i class="fa fa-cogs" aria-hidden="true"></i>
-						<span>{@lightspeedto_odoo.mini.mappings}</span>
+						<span>{lightspeedto_odoo.mini.mappings}</span>
 					</a>
 
 					<a href="{U_PROCESS}" class="mini-action process">
 						<i class="fa fa-list" aria-hidden="true"></i>
-						<span>{@lightspeedto_odoo.mini.process}</span>
+						<span>{lightspeedto_odoo.mini.process}</span>
 					</a>
 				</div>
 			</div>
@@ -159,25 +159,22 @@
 	padding: 0.5rem;
 	border-radius: 0.25rem;
 	font-size: 0.875rem;
-	font-weight: 500;
 }
 
 .mini-alert.warning {
 	background: rgba(var(--warning-rgb), 0.1);
 	color: var(--warning-color);
-	border-left: 3px solid var(--warning-color);
 }
 
 .mini-alert.processing {
 	background: rgba(var(--notice-rgb), 0.1);
 	color: var(--notice-color);
-	border-left: 3px solid var(--notice-color);
 }
 
 .mini-actions {
 	display: flex;
 	flex-direction: column;
-	gap: 0.25rem;
+	gap: 0.5rem;
 }
 
 .mini-action {
@@ -187,16 +184,14 @@
 	padding: 0.5rem;
 	text-decoration: none;
 	color: var(--main-color);
+	background: rgba(var(--main-rgb), 0.05);
 	border-radius: 0.25rem;
-	transition: all 0.2s ease;
-	font-size: 0.875rem;
+	transition: background-color 0.2s ease;
 }
 
 .mini-action:hover {
 	background: rgba(var(--main-rgb), 0.1);
-	color: var(--main-color);
 	text-decoration: none;
-	transform: translateX(2px);
 }
 
 .mini-action i {
@@ -204,75 +199,8 @@
 	text-align: center;
 }
 
-.mini-action.upload:hover {
-	background: rgba(var(--success-rgb), 0.1);
-	color: var(--success-color);
-}
-
-.mini-action.mappings:hover {
-	background: rgba(var(--notice-rgb), 0.1);
-	color: var(--notice-color);
-}
-
-.mini-action.process:hover {
-	background: rgba(var(--warning-rgb), 0.1);
-	color: var(--warning-color);
-}
-
-/* Animation pour les éléments en cours de traitement */
-@keyframes pulse {
-	0% { opacity: 1; }
-	50% { opacity: 0.6; }
-	100% { opacity: 1; }
-}
-
-.mini-alert.processing {
-	animation: pulse 2s infinite;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-	#module-mini-lightspeedto_odoo {
-		min-width: 200px;
-	}
-	
-	.mini-stat-item {
-		gap: 0.5rem;
-		padding: 0.375rem;
-	}
-	
-	.mini-stat-icon {
-		width: 1.5rem;
-		height: 1.5rem;
-		font-size: 0.75rem;
-	}
-	
-	.mini-stat-value {
-		font-size: 1rem;
-	}
-	
-	.mini-stat-label {
-		font-size: 0.7rem;
-	}
-	
-	.mini-action {
-		padding: 0.375rem;
-		font-size: 0.8rem;
-	}
-}
-
-/* Mode sombre */
-@media (prefers-color-scheme: dark) {
-	.mini-stat-item {
-		background: rgba(255, 255, 255, 0.05);
-	}
-	
-	.mini-stat-label {
-		color: #999;
-	}
-	
-	.mini-action:hover {
-		background: rgba(255, 255, 255, 0.1);
-	}
+.mini-action span {
+	flex: 1;
+	font-size: 0.875rem;
 }
 </style>

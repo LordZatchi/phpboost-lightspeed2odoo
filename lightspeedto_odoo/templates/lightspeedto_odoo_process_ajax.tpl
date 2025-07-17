@@ -1,9 +1,9 @@
 <article class="content-container">
 	<header class="section-header">
-		<h1>{@lightspeedto_odoo.process.processing} - {FILENAME}</h1>
+		<h1>{lightspeedto_odoo.process.processing} - {FILENAME}</h1>
 		<div class="controls align-right">
 			<a href="{U_DETAILS}" class="button" id="view-details-btn" style="display: none;">
-				<i class="fa fa-eye" aria-hidden="true"></i> {@lightspeedto_odoo.process.view_details}
+				<i class="fa fa-eye" aria-hidden="true"></i> {lightspeedto_odoo.process.view_details}
 			</a>
 		</div>
 	</header>
@@ -13,9 +13,9 @@
 		<div class="content-block">
 			<div class="processing-container">
 				<div class="processing-header">
-					<h2>{@lightspeedto_odoo.process.processing_file}</h2>
+					<h2>{lightspeedto_odoo.process.processing_file}</h2>
 					<div class="processing-status">
-						<span id="status-text">{@lightspeedto_odoo.process.initializing}</span>
+						<span id="status-text">{lightspeedto_odoo.process.initializing}</span>
 						<div id="processing-spinner" class="spinner">
 							<i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
 						</div>
@@ -25,7 +25,7 @@
 				<!-- Barre de progression principale -->
 				<div class="progress-main">
 					<div class="progress-info">
-						<span id="progress-text">0 / {TOTAL_ROWS} {@lightspeedto_odoo.process.rows}</span>
+						<span id="progress-text">0 / {TOTAL_ROWS} {lightspeedto_odoo.process.rows}</span>
 						<span id="progress-percentage">0%</span>
 					</div>
 					<div class="progressbar-container large">
@@ -43,7 +43,7 @@
 						</div>
 						<div class="stat-content">
 							<div class="stat-value" id="processed-count">0</div>
-							<div class="stat-label">{@lightspeedto_odoo.process.processed}</div>
+							<div class="stat-label">{lightspeedto_odoo.process.processed}</div>
 						</div>
 					</div>
 
@@ -53,7 +53,7 @@
 						</div>
 						<div class="stat-content">
 							<div class="stat-value" id="error-count">0</div>
-							<div class="stat-label">{@lightspeedto_odoo.process.errors}</div>
+							<div class="stat-label">{lightspeedto_odoo.process.errors}</div>
 						</div>
 					</div>
 
@@ -63,58 +63,44 @@
 						</div>
 						<div class="stat-content">
 							<div class="stat-value" id="elapsed-time">00:00</div>
-							<div class="stat-label">{@lightspeedto_odoo.process.elapsed_time}</div>
+							<div class="stat-label">{lightspeedto_odoo.process.elapsed_time}</div>
 						</div>
 					</div>
 
-					<div class="stat-card warning">
+					<div class="stat-card">
 						<div class="stat-icon">
-							<i class="fa fa-tachometer" aria-hidden="true"></i>
+							<i class="fa fa-dashboard" aria-hidden="true"></i>
 						</div>
 						<div class="stat-content">
 							<div class="stat-value" id="processing-speed">0</div>
-							<div class="stat-label">{@lightspeedto_odoo.process.speed}</div>
+							<div class="stat-label">{lightspeedto_odoo.process.rows_per_second}</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 
-		<!-- Log en temps réel -->
-		<div class="content-block">
-			<div class="log-container">
-				<div class="log-header">
-					<h3>{@lightspeedto_odoo.process.log}</h3>
-					<div class="log-controls">
-						<button type="button" id="toggle-log" class="button small">
-							<i class="fa fa-eye-slash" aria-hidden="true"></i> {@lightspeedto_odoo.process.hide_log}
-						</button>
-						<button type="button" id="clear-log" class="button small">
-							<i class="fa fa-trash" aria-hidden="true"></i> {@lightspeedto_odoo.process.clear_log}
-						</button>
+				<!-- Journal en temps réel -->
+				<div class="real-time-log">
+					<h3>{lightspeedto_odoo.process.real_time_log}</h3>
+					<div id="log-container" class="log-container">
+						<div class="log-entry info">
+							<span class="log-timestamp" id="start-time"></span>
+							<span class="log-message">{lightspeedto_odoo.process.log.starting}</span>
+						</div>
 					</div>
 				</div>
-				<div id="processing-log" class="log-content">
-					<div class="log-entry info">
-						<span class="log-time">[<span id="start-time"></span>]</span>
-						<span class="log-message">{@lightspeedto_odoo.process.starting}</span>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<!-- Contrôles -->
-		<div class="content-block">
-			<div class="processing-controls">
-				<button type="button" id="pause-btn" class="button warning" style="display: none;">
-					<i class="fa fa-pause" aria-hidden="true"></i> {@lightspeedto_odoo.process.pause}
-				</button>
-				<button type="button" id="resume-btn" class="button submit" style="display: none;">
-					<i class="fa fa-play" aria-hidden="true"></i> {@lightspeedto_odoo.process.resume}
-				</button>
-				<button type="button" id="stop-btn" class="button error" style="display: none;">
-					<i class="fa fa-stop" aria-hidden="true"></i> {@lightspeedto_odoo.process.stop}
-				</button>
+				<!-- Actions de contrôle -->
+				<div class="processing-controls" id="processing-controls">
+					<button type="button" id="pause-btn" class="button notice" style="display: none;">
+						<i class="fa fa-pause" aria-hidden="true"></i> {lightspeedto_odoo.process.pause}
+					</button>
+					<button type="button" id="resume-btn" class="button submit" style="display: none;">
+						<i class="fa fa-play" aria-hidden="true"></i> {lightspeedto_odoo.process.resume}
+					</button>
+					<button type="button" id="cancel-btn" class="button bgc error" style="display: none;">
+						<i class="fa fa-stop" aria-hidden="true"></i> {lightspeedto_odoo.process.cancel}
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -123,247 +109,239 @@
 <script>
 <!--
 document.addEventListener('DOMContentLoaded', function() {
-	const uploadId = {UPLOAD_ID};
-	const totalRows = {TOTAL_ROWS};
-	const ajaxUrl = '{U_AJAX_PROCESS}';
+	// Variables globales
+	var uploadId = {UPLOAD_ID};
+	var totalRows = {TOTAL_ROWS};
+	var ajaxUrl = '{U_AJAX_PROCESS}';
+	var detailsUrl = '{U_DETAILS}';
 	
-	let currentBatch = 0;
-	let processedRows = 0;
-	let errorCount = 0;
-	let isProcessing = false;
-	let isPaused = false;
-	let startTime = Date.now();
-	let processingInterval;
+	var startTime = new Date();
+	var isPaused = false;
+	var isCompleted = false;
+	var currentRow = 0;
+	var errorCount = 0;
 	
 	// Éléments DOM
-	const elements = {
-		statusText: document.getElementById('status-text'),
-		progressBar: document.getElementById('progress-bar'),
-		progressText: document.getElementById('progress-text'),
-		progressPercentage: document.getElementById('progress-percentage'),
-		processedCount: document.getElementById('processed-count'),
-		errorCount: document.getElementById('error-count'),
-		elapsedTime: document.getElementById('elapsed-time'),
-		processingSpeed: document.getElementById('processing-speed'),
-		processingLog: document.getElementById('processing-log'),
-		startTime: document.getElementById('start-time'),
-		pauseBtn: document.getElementById('pause-btn'),
-		resumeBtn: document.getElementById('resume-btn'),
-		stopBtn: document.getElementById('stop-btn'),
-		toggleLogBtn: document.getElementById('toggle-log'),
-		clearLogBtn: document.getElementById('clear-log'),
-		viewDetailsBtn: document.getElementById('view-details-btn'),
-		spinner: document.getElementById('processing-spinner')
-	};
+	var statusText = document.getElementById('status-text');
+	var progressText = document.getElementById('progress-text');
+	var progressPercentage = document.getElementById('progress-percentage');
+	var progressBar = document.getElementById('progress-bar');
+	var processedCount = document.getElementById('processed-count');
+	var errorCountElement = document.getElementById('error-count');
+	var elapsedTime = document.getElementById('elapsed-time');
+	var processingSpeed = document.getElementById('processing-speed');
+	var logContainer = document.getElementById('log-container');
+	var viewDetailsBtn = document.getElementById('view-details-btn');
+	var pauseBtn = document.getElementById('pause-btn');
+	var resumeBtn = document.getElementById('resume-btn');
+	var cancelBtn = document.getElementById('cancel-btn');
 	
 	// Initialisation
-	init();
+	updateElapsedTime();
+	setInterval(updateElapsedTime, 1000);
 	
-	function init() {
-		elements.startTime.textContent = formatTime(new Date());
-		addLogEntry('info', '{@lightspeedto_odoo.process.log.initialized}');
-		
-		// Démarrer le traitement
-		setTimeout(startProcessing, 1000);
-		
-		// Démarrer le timer
-		startTimer();
-		
-		// Événements
-		setupEventListeners();
+	// Afficher l'heure de démarrage
+	var startTimeElement = document.getElementById('start-time');
+	if (startTimeElement) {
+		startTimeElement.textContent = formatTime(startTime);
 	}
 	
-	function setupEventListeners() {
-		elements.pauseBtn?.addEventListener('click', pauseProcessing);
-		elements.resumeBtn?.addEventListener('click', resumeProcessing);
-		elements.stopBtn?.addEventListener('click', stopProcessing);
-		elements.toggleLogBtn?.addEventListener('click', toggleLog);
-		elements.clearLogBtn?.addEventListener('click', clearLog);
-		
-		// Prévenir la fermeture accidentelle
-		window.addEventListener('beforeunload', function(e) {
-			if (isProcessing && !isPaused) {
-				e.preventDefault();
-				e.returnValue = '{@lightspeedto_odoo.process.warning.close}';
-				return e.returnValue;
-			}
-		});
+	// Démarrer le traitement
+	setTimeout(startProcessing, 1000);
+	
+	// Événements des boutons de contrôle
+	if (pauseBtn) {
+		pauseBtn.addEventListener('click', pauseProcessing);
+	}
+	if (resumeBtn) {
+		resumeBtn.addEventListener('click', resumeProcessing);
+	}
+	if (cancelBtn) {
+		cancelBtn.addEventListener('click', cancelProcessing);
 	}
 	
 	function startProcessing() {
-		isProcessing = true;
-		elements.statusText.textContent = '{@lightspeedto_odoo.process.processing_data}';
-		elements.pauseBtn.style.display = 'inline-block';
-		elements.stopBtn.style.display = 'inline-block';
-		
-		addLogEntry('success', '{@lightspeedto_odoo.process.log.started}');
-		processBatch();
+		statusText.textContent = '{lightspeedto_odoo.process.processing_data}';
+		showControls();
+		processNextBatch();
 	}
 	
-	function processBatch() {
-		if (!isProcessing || isPaused) return;
+	function processNextBatch() {
+		if (isPaused || isCompleted) {
+			return;
+		}
 		
-		const batchUrl = `${ajaxUrl}&batch=${currentBatch}`;
-		addLogEntry('info', `{@lightspeedto_odoo.process.log.processing_batch} ${currentBatch + 1}`);
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', ajaxUrl, true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		
-		fetch(batchUrl, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			}
-		})
-		.then(response => response.json())
-		.then(data => {
-			if (data.success) {
-				processedRows += data.processed_rows;
-				errorCount += data.errors;
-				
-				updateProgress();
-				addLogEntry('success', data.message);
-				
-				if (data.completed) {
-					completeProcessing();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					try {
+						var response = JSON.parse(xhr.responseText);
+						handleProcessingResponse(response);
+					} catch (e) {
+						handleError('{lightspeedto_odoo.process.error.invalid_response}');
+					}
 				} else {
-					currentBatch++;
-					// Petite pause entre les batches
-					setTimeout(processBatch, 500);
+					handleError('{lightspeedto_odoo.process.error.network}');
 				}
-			} else {
-				addLogEntry('error', `{@lightspeedto_odoo.process.log.error}: ${data.error}`);
-				stopProcessing(true);
 			}
-		})
-		.catch(error => {
-			addLogEntry('error', `{@lightspeedto_odoo.process.log.network_error}: ${error.message}`);
-			stopProcessing(true);
-		});
+		};
+		
+		xhr.send('upload_id=' + uploadId + '&current_row=' + currentRow);
+	}
+	
+	function handleProcessingResponse(response) {
+		if (response.success) {
+			currentRow = response.processed_rows || currentRow;
+			errorCount = response.error_count || errorCount;
+			
+			updateProgress();
+			
+			if (response.completed) {
+				completeProcessing(response);
+			} else {
+				// Ajouter une entrée au journal
+				if (response.log_message) {
+					addLogEntry('info', response.log_message);
+				}
+				
+				// Continuer le traitement
+				setTimeout(processNextBatch, 500);
+			}
+		} else {
+			handleError(response.message || '{lightspeedto_odoo.process.error.unknown}');
+		}
 	}
 	
 	function updateProgress() {
-		const percentage = Math.round((processedRows / totalRows) * 100);
+		var percentage = Math.round((currentRow / totalRows) * 100);
 		
-		elements.progressBar.style.width = `${percentage}%`;
-		elements.progressText.textContent = `${processedRows} / ${totalRows} {@lightspeedto_odoo.process.rows}`;
-		elements.progressPercentage.textContent = `${percentage}%`;
-		elements.processedCount.textContent = processedRows;
-		elements.errorCount.textContent = errorCount;
+		progressText.textContent = currentRow + ' / ' + totalRows + ' {lightspeedto_odoo.process.rows}';
+		progressPercentage.textContent = percentage + '%';
+		progressBar.style.width = percentage + '%';
+		processedCount.textContent = currentRow;
+		errorCountElement.textContent = errorCount;
 		
-		// Calcul de la vitesse
-		const elapsed = (Date.now() - startTime) / 1000;
-		const speed = elapsed > 0 ? Math.round(processedRows / elapsed * 60) : 0;
-		elements.processingSpeed.textContent = `${speed}/min`;
+		// Calcul de la vitesse de traitement
+		var elapsed = (new Date() - startTime) / 1000;
+		var speed = elapsed > 0 ? Math.round(currentRow / elapsed) : 0;
+		processingSpeed.textContent = speed;
 	}
 	
-	function completeProcessing() {
-		isProcessing = false;
-		elements.statusText.textContent = '{@lightspeedto_odoo.process.completed}';
-		elements.spinner.style.display = 'none';
-		elements.pauseBtn.style.display = 'none';
-		elements.stopBtn.style.display = 'none';
-		elements.viewDetailsBtn.style.display = 'inline-block';
+	function completeProcessing(response) {
+		isCompleted = true;
 		
-		if (errorCount > 0) {
-			addLogEntry('warning', `{@lightspeedto_odoo.process.log.completed_with_errors}: ${errorCount}`);
-		} else {
-			addLogEntry('success', '{@lightspeedto_odoo.process.log.completed_successfully}');
-		}
+		statusText.textContent = '{lightspeedto_odoo.process.completed}';
+		hideSpinner();
+		hideControls();
+		showViewDetailsButton();
 		
-		// Notification
-		if ('Notification' in window && Notification.permission === 'granted') {
-			new Notification('{@lightspeedto_odoo.process.notification.completed}', {
-				body: `${processedRows} {@lightspeedto_odoo.process.notification.rows_processed}`,
-				icon: '/templates/__default__/images/favicon.png'
-			});
-		}
+		var message = response.error_count > 0 ? 
+			'{lightspeedto_odoo.process.completed_with_errors}' : 
+			'{lightspeedto_odoo.process.completed_successfully}';
+		
+		addLogEntry('success', message);
+		
+		// Redirection automatique après 5 secondes
+		setTimeout(function() {
+			window.location.href = detailsUrl;
+		}, 5000);
+	}
+	
+	function handleError(message) {
+		isCompleted = true;
+		
+		statusText.textContent = '{lightspeedto_odoo.process.error}';
+		hideSpinner();
+		hideControls();
+		showViewDetailsButton();
+		
+		addLogEntry('error', message);
 	}
 	
 	function pauseProcessing() {
 		isPaused = true;
-		elements.statusText.textContent = '{@lightspeedto_odoo.process.paused}';
-		elements.pauseBtn.style.display = 'none';
-		elements.resumeBtn.style.display = 'inline-block';
-		addLogEntry('warning', '{@lightspeedto_odoo.process.log.paused}');
+		statusText.textContent = '{lightspeedto_odoo.process.paused}';
+		pauseBtn.style.display = 'none';
+		resumeBtn.style.display = 'inline-block';
+		addLogEntry('warning', '{lightspeedto_odoo.process.log.paused}');
 	}
 	
 	function resumeProcessing() {
 		isPaused = false;
-		elements.statusText.textContent = '{@lightspeedto_odoo.process.processing_data}';
-		elements.pauseBtn.style.display = 'inline-block';
-		elements.resumeBtn.style.display = 'none';
-		addLogEntry('info', '{@lightspeedto_odoo.process.log.resumed}');
-		processBatch();
+		statusText.textContent = '{lightspeedto_odoo.process.processing_data}';
+		resumeBtn.style.display = 'none';
+		pauseBtn.style.display = 'inline-block';
+		addLogEntry('info', '{lightspeedto_odoo.process.log.resumed}');
+		processNextBatch();
 	}
 	
-	function stopProcessing(isError = false) {
-		const confirmMessage = isError ? 
-			'{@lightspeedto_odoo.process.error_occurred}' : 
-			'{@lightspeedto_odoo.process.confirm_stop}';
+	function cancelProcessing() {
+		if (confirm('{lightspeedto_odoo.process.cancel.confirmation}')) {
+			isCompleted = true;
 			
-		if (!isError && !confirm(confirmMessage)) {
-			return;
+			// Requête d'annulation
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', ajaxUrl, true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.send('upload_id=' + uploadId + '&action=cancel');
+			
+			statusText.textContent = '{lightspeedto_odoo.process.cancelled}';
+			hideSpinner();
+			hideControls();
+			showViewDetailsButton();
+			
+			addLogEntry('error', '{lightspeedto_odoo.process.log.cancelled}');
 		}
-		
-		isProcessing = false;
-		isPaused = false;
-		elements.statusText.textContent = isError ? 
-			'{@lightspeedto_odoo.process.stopped_error}' : 
-			'{@lightspeedto_odoo.process.stopped}';
-		elements.spinner.style.display = 'none';
-		elements.pauseBtn.style.display = 'none';
-		elements.resumeBtn.style.display = 'none';
-		elements.stopBtn.style.display = 'none';
-		elements.viewDetailsBtn.style.display = 'inline-block';
-		
-		addLogEntry(isError ? 'error' : 'warning', 
-			isError ? '{@lightspeedto_odoo.process.log.stopped_error}' : '{@lightspeedto_odoo.process.log.stopped}');
 	}
 	
-	function startTimer() {
-		setInterval(() => {
-			const elapsed = Date.now() - startTime;
-			elements.elapsedTime.textContent = formatDuration(elapsed);
-		}, 1000);
+	function updateElapsedTime() {
+		var elapsed = new Date() - startTime;
+		var seconds = Math.floor(elapsed / 1000) % 60;
+		var minutes = Math.floor(elapsed / 60000);
+		
+		elapsedTime.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
 	}
 	
 	function addLogEntry(type, message) {
-		const logEntry = document.createElement('div');
-		logEntry.className = `log-entry ${type}`;
-		logEntry.innerHTML = `
-			<span class="log-time">[${formatTime(new Date())}]</span>
-			<span class="log-message">${message}</span>
-		`;
+		var entry = document.createElement('div');
+		entry.className = 'log-entry ' + type;
+		entry.innerHTML = '<span class="log-timestamp">' + formatTime(new Date()) + '</span>' +
+						  '<span class="log-message">' + message + '</span>';
 		
-		elements.processingLog.appendChild(logEntry);
-		elements.processingLog.scrollTop = elements.processingLog.scrollHeight;
-	}
-	
-	function toggleLog() {
-		const isVisible = elements.processingLog.style.display !== 'none';
-		elements.processingLog.style.display = isVisible ? 'none' : 'block';
-		elements.toggleLogBtn.innerHTML = isVisible ? 
-			'<i class="fa fa-eye" aria-hidden="true"></i> {@lightspeedto_odoo.process.show_log}' :
-			'<i class="fa fa-eye-slash" aria-hidden="true"></i> {@lightspeedto_odoo.process.hide_log}';
-	}
-	
-	function clearLog() {
-		elements.processingLog.innerHTML = '';
-		addLogEntry('info', '{@lightspeedto_odoo.process.log.cleared}');
+		logContainer.appendChild(entry);
+		logContainer.scrollTop = logContainer.scrollHeight;
 	}
 	
 	function formatTime(date) {
-		return date.toLocaleTimeString();
+		return String(date.getHours()).padStart(2, '0') + ':' +
+			   String(date.getMinutes()).padStart(2, '0') + ':' +
+			   String(date.getSeconds()).padStart(2, '0');
 	}
 	
-	function formatDuration(ms) {
-		const seconds = Math.floor(ms / 1000);
-		const minutes = Math.floor(seconds / 60);
-		const remainingSeconds = seconds % 60;
-		return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+	function hideSpinner() {
+		var spinner = document.getElementById('processing-spinner');
+		if (spinner) {
+			spinner.style.display = 'none';
+		}
 	}
 	
-	// Demander la permission pour les notifications
-	if ('Notification' in window && Notification.permission === 'default') {
-		Notification.requestPermission();
+	function showControls() {
+		pauseBtn.style.display = 'inline-block';
+		cancelBtn.style.display = 'inline-block';
+	}
+	
+	function hideControls() {
+		pauseBtn.style.display = 'none';
+		resumeBtn.style.display = 'none';
+		cancelBtn.style.display = 'none';
+	}
+	
+	function showViewDetailsButton() {
+		viewDetailsBtn.style.display = 'inline-block';
 	}
 });
 //-->
@@ -371,23 +349,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <style>
 .processing-container {
-	background: #f8f9fa;
-	border-radius: 0.5rem;
-	padding: 2rem;
-	margin-bottom: 2rem;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
 .processing-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	text-align: center;
 	margin-bottom: 2rem;
 }
 
 .processing-status {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	gap: 1rem;
+	margin-top: 1rem;
 }
 
 .spinner {
@@ -401,25 +377,21 @@ document.addEventListener('DOMContentLoaded', function() {
 .progress-info {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 	font-weight: bold;
 }
 
 .progressbar-container.large {
-	height: 2rem;
-	border-radius: 1rem;
+	height: 1.5rem;
+	border-radius: 0.75rem;
 	overflow: hidden;
-}
-
-.progressbar-container.large .progressbar {
-	height: 100%;
 }
 
 .stats-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 	gap: 1rem;
+	margin-bottom: 2rem;
 }
 
 .stat-card {
@@ -427,101 +399,95 @@ document.addEventListener('DOMContentLoaded', function() {
 	align-items: center;
 	gap: 1rem;
 	padding: 1rem;
+	background: rgba(var(--main-rgb), 0.05);
 	border-radius: 0.5rem;
-	border: 2px solid transparent;
+	border: 1px solid rgba(var(--main-rgb), 0.1);
 }
 
 .stat-card.success {
-	background: rgba(var(--success-rgb), 0.1);
-	border-color: var(--success-color);
+	background: rgba(var(--success-rgb), 0.05);
+	border-color: rgba(var(--success-rgb), 0.2);
 }
 
 .stat-card.error {
-	background: rgba(var(--error-rgb), 0.1);
-	border-color: var(--error-color);
+	background: rgba(var(--error-rgb), 0.05);
+	border-color: rgba(var(--error-rgb), 0.2);
 }
 
 .stat-card.notice {
-	background: rgba(var(--notice-rgb), 0.1);
-	border-color: var(--notice-color);
-}
-
-.stat-card.warning {
-	background: rgba(var(--warning-rgb), 0.1);
-	border-color: var(--warning-color);
+	background: rgba(var(--notice-rgb), 0.05);
+	border-color: rgba(var(--notice-rgb), 0.2);
 }
 
 .stat-icon {
-	font-size: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	background: rgba(var(--main-rgb), 0.1);
+	color: var(--main-color);
+	font-size: 1.125rem;
 }
 
 .stat-card.success .stat-icon {
+	background: rgba(var(--success-rgb), 0.2);
 	color: var(--success-color);
 }
 
 .stat-card.error .stat-icon {
+	background: rgba(var(--error-rgb), 0.2);
 	color: var(--error-color);
 }
 
 .stat-card.notice .stat-icon {
+	background: rgba(var(--notice-rgb), 0.2);
 	color: var(--notice-color);
 }
 
-.stat-card.warning .stat-icon {
-	color: var(--warning-color);
+.stat-content {
+	flex: 1;
 }
 
 .stat-value {
-	font-size: 2rem;
+	font-size: 1.5rem;
 	font-weight: bold;
 	margin-bottom: 0.25rem;
 }
 
 .stat-label {
 	font-size: 0.875rem;
+	color: #666;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
-	opacity: 0.8;
+}
+
+.real-time-log {
+	margin-bottom: 2rem;
 }
 
 .log-container {
-	background: #fff;
-	border: 1px solid #dee2e6;
-	border-radius: 0.5rem;
-	overflow: hidden;
-}
-
-.log-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 1rem;
-	background: #f8f9fa;
-	border-bottom: 1px solid #dee2e6;
-}
-
-.log-controls {
-	display: flex;
-	gap: 0.5rem;
-}
-
-.log-content {
 	max-height: 300px;
 	overflow-y: auto;
+	border: 1px solid #dee2e6;
+	border-radius: 0.5rem;
+	background: #f8f9fa;
 	padding: 1rem;
-	font-family: 'Courier New', monospace;
-	font-size: 0.875rem;
-	line-height: 1.4;
 }
 
 .log-entry {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem;
 	margin-bottom: 0.5rem;
-	padding: 0.25rem 0.5rem;
 	border-radius: 0.25rem;
+	font-size: 0.875rem;
 }
 
 .log-entry.info {
-	background: rgba(var(--notice-rgb), 0.1);
+	background: rgba(var(--main-rgb), 0.1);
 }
 
 .log-entry.success {
@@ -536,43 +502,40 @@ document.addEventListener('DOMContentLoaded', function() {
 	background: rgba(var(--error-rgb), 0.1);
 }
 
-.log-time {
+.log-timestamp {
 	color: #666;
-	margin-right: 0.5rem;
+	font-family: monospace;
+	font-size: 0.8rem;
+}
+
+.log-message {
+	flex: 1;
 }
 
 .processing-controls {
-	display: flex;
-	justify-content: center;
+	text-align: center;
 	gap: 1rem;
-	padding: 1rem;
+}
+
+.processing-controls .button {
+	margin: 0 0.5rem;
 }
 
 @media (max-width: 768px) {
-	.processing-header {
-		flex-direction: column;
-		gap: 1rem;
-		text-align: center;
-	}
-	
-	.progress-info {
-		flex-direction: column;
-		gap: 0.5rem;
-		text-align: center;
-	}
-	
 	.stats-grid {
 		grid-template-columns: 1fr;
 	}
 	
-	.log-header {
+	.progress-info {
 		flex-direction: column;
-		gap: 1rem;
+		text-align: center;
+		gap: 0.5rem;
 	}
 	
-	.processing-controls {
-		flex-direction: column;
-		align-items: center;
+	.processing-controls .button {
+		display: block;
+		margin: 0.5rem auto;
+		width: 200px;
 	}
 }
 </style>

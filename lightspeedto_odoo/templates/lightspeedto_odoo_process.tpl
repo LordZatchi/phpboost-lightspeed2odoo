@@ -1,12 +1,12 @@
 <article class="content-container">
 	<header class="section-header">
-		<h1>{@lightspeedto_odoo.process.title}</h1>
+		<h1>{lightspeedto_odoo.process.title}</h1>
 		<div class="controls align-right">
 			<a href="{U_UPLOAD}" class="button submit">
-				<i class="fa fa-upload" aria-hidden="true"></i> {@lightspeedto_odoo.upload.new}
+				<i class="fa fa-upload" aria-hidden="true"></i> {lightspeedto_odoo.upload.new}
 			</a>
 			<a href="{U_HOME}" class="button">
-				<i class="fa fa-home" aria-hidden="true"></i> {@lightspeedto_odoo.home.title}
+				<i class="fa fa-home" aria-hidden="true"></i> {lightspeedto_odoo.home.title}
 			</a>
 		</div>
 	</header>
@@ -17,19 +17,19 @@
 		# IF C_LIST_MODE #
 			# IF C_UPLOADS #
 				<div class="content-block">
-					<h2>{@lightspeedto_odoo.process.uploads_list} ({TOTAL_UPLOADS})</h2>
+					<h2>{lightspeedto_odoo.process.uploads_list} ({TOTAL_UPLOADS})</h2>
 					<div class="responsive-table">
 						<table class="table">
 							<thead>
 								<tr>
-									<th>{@common.file}</th>
-									<th>{@lightspeedto_odoo.upload.mapping}</th>
-									<th>{@common.status}</th>
-									<th>{@lightspeedto_odoo.upload.progress}</th>
-									<th>{@lightspeedto_odoo.upload.errors}</th>
-									<th>{@common.author}</th>
-									<th>{@lightspeedto_odoo.upload.date}</th>
-									<th>{@common.actions}</th>
+									<th>{common.file}</th>
+									<th>{lightspeedto_odoo.upload.mapping}</th>
+									<th>{common.status}</th>
+									<th>{lightspeedto_odoo.upload.progress}</th>
+									<th>{lightspeedto_odoo.upload.errors}</th>
+									<th>{common.author}</th>
+									<th>{lightspeedto_odoo.upload.date}</th>
+									<th>{common.actions}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -48,7 +48,7 @@
 											# IF uploads.C_HAS_MAPPING #
 												<span class="pinned notice">{uploads.MAPPING_NAME}</span>
 											# ELSE #
-												<em>{@lightspeedto_odoo.mapping.none}</em>
+												<em>{lightspeedto_odoo.mapping.none}</em>
 											# ENDIF #
 										</td>
 										<td>
@@ -61,63 +61,50 @@
 										</td>
 										<td>
 											# IF uploads.TOTAL_ROWS #
-												<div class="progress-container">
-													<div class="progressbar-container">
-														<div class="progressbar">
-															<div class="progressbar-value" style="width: {uploads.PROGRESS_PERCENT}%"></div>
-														</div>
+												<div class="progressbar-container">
+													<div class="progressbar">
+														<div class="progressbar-value" style="width: {uploads.PROGRESS_PERCENT}%"></div>
 													</div>
-													<div class="progress-text">
-														{uploads.PROCESSED_ROWS} / {uploads.TOTAL_ROWS}
-														<span class="small">({uploads.PROGRESS_PERCENT}%)</span>
-													</div>
+													<small>{uploads.PROCESSED_ROWS}/{uploads.TOTAL_ROWS}</small>
 												</div>
 											# ELSE #
-												<span class="text-muted">-</span>
+												-
 											# ENDIF #
 										</td>
 										<td>
-											# IF uploads.C_HAS_ERRORS #
+											# IF uploads.ERROR_COUNT #
 												<span class="pinned error">{uploads.ERROR_COUNT}</span>
 											# ELSE #
-												<span class="text-muted">0</span>
+												<span class="pinned success">0</span>
 											# ENDIF #
 										</td>
 										<td>
-											# IF uploads.C_AUTHOR_EXISTS #
-												# IF uploads.C_AUTHOR_GROUP_COLOR #
-													<span style="color: {uploads.AUTHOR_GROUP_COLOR}">
-												# ENDIF #
-												<a href="{uploads.U_AUTHOR_PROFILE}" class="{uploads.AUTHOR_LEVEL_CLASS}">{uploads.AUTHOR_DISPLAY_NAME}</a>
-												# IF uploads.C_AUTHOR_GROUP_COLOR #
-													</span>
-												# ENDIF #
+											# IF uploads.C_AUTHOR_EXIST #
+												<a href="{uploads.U_AUTHOR_PROFILE}">{uploads.AUTHOR_DISPLAY_NAME}</a>
 											# ELSE #
-												{@user.guest}
+												{user.guest}
 											# ENDIF #
 										</td>
-										<td>
-											<div class="date-info">
-												{uploads.UPLOAD_DATE}
-												# IF uploads.C_PROCESSED_DATE #
-													<br><small class="text-muted">{@lightspeedto_odoo.process.processed}: {uploads.PROCESSED_DATE}</small>
-												# ENDIF #
-											</div>
-										</td>
+										<td>{uploads.UPLOAD_DATE}</td>
 										<td>
 											<div class="controls">
-												<a href="{uploads.U_DETAILS}" class="button small" title="{@common.see.details}">
+												<a href="{uploads.U_DETAILS}" class="button small" title="{common.see.details}">
 													<i class="fa fa-eye" aria-hidden="true"></i>
 												</a>
 												# IF uploads.C_CAN_PROCESS #
-													<a href="{uploads.U_PROCESS}" class="button small submit" title="{@lightspeedto_odoo.process.start}">
+													<a href="{uploads.U_PROCESS}" class="button small submit" title="{lightspeedto_odoo.process.start}">
 														<i class="fa fa-play" aria-hidden="true"></i>
 													</a>
 												# ENDIF #
-												# IF uploads.C_IS_PROCESSING #
-													<button type="button" class="button small warning" onclick="refreshUploadStatus({uploads.ID})" title="{@common.refresh}">
+												# IF uploads.C_CAN_RETRY #
+													<a href="{uploads.U_RETRY}" class="button small notice" title="{lightspeedto_odoo.process.retry}">
 														<i class="fa fa-refresh" aria-hidden="true"></i>
-													</button>
+													</a>
+												# ENDIF #
+												# IF uploads.C_CAN_DELETE #
+													<a href="{uploads.U_DELETE}" class="button small bgc error" title="{common.delete}" data-confirmation="delete-element">
+														<i class="fa fa-trash" aria-hidden="true"></i>
+													</a>
 												# ENDIF #
 											</div>
 										</td>
@@ -133,226 +120,110 @@
 						</div>
 					# ENDIF #
 				</div>
-
-				<!-- Légende des statuts -->
-				<div class="content-block">
-					<h3>{@lightspeedto_odoo.process.status.legend}</h3>
-					<div class="cell-flex cell-columns-2 cell-tile">
-						<div class="cell">
-							<div class="cell-body">
-								<div class="status-legend">
-									<div class="legend-item">
-										<span class="pinned notice">{@lightspeedto_odoo.status.pending}</span>
-										<span>{@lightspeedto_odoo.status.pending.description}</span>
-									</div>
-									<div class="legend-item">
-										<span class="pinned warning">
-											<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-											{@lightspeedto_odoo.status.processing}
-										</span>
-										<span>{@lightspeedto_odoo.status.processing.description}</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="cell">
-							<div class="cell-body">
-								<div class="status-legend">
-									<div class="legend-item">
-										<span class="pinned success">{@lightspeedto_odoo.status.completed}</span>
-										<span>{@lightspeedto_odoo.status.completed.description}</span>
-									</div>
-									<div class="legend-item">
-										<span class="pinned error">{@lightspeedto_odoo.status.error}</span>
-										<span>{@lightspeedto_odoo.status.error.description}</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 			# ELSE #
 				<div class="content-block">
 					<div class="cell">
 						<div class="cell-body align-center">
-							<i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
-							<h3>{@lightspeedto_odoo.process.no_uploads}</h3>
-							<p>{@lightspeedto_odoo.process.no_uploads.description}</p>
-							<a href="{U_UPLOAD}" class="button submit">
-								<i class="fa fa-upload" aria-hidden="true"></i> {@lightspeedto_odoo.upload.first}
-							</a>
+							<i class="fa fa-list fa-4x" aria-hidden="true"></i>
+							<h3>{lightspeedto_odoo.process.no_uploads}</h3>
+							<p>{lightspeedto_odoo.process.no_uploads.description}</p>
+							# IF C_CAN_UPLOAD #
+								<a href="{U_UPLOAD}" class="button submit">
+									<i class="fa fa-upload" aria-hidden="true"></i> {lightspeedto_odoo.upload.first}
+								</a>
+							# ENDIF #
 						</div>
 					</div>
 				</div>
 			# ENDIF #
-		# ENDIF #
 
-		<!-- Conseils et informations -->
-		<div class="content-block">
-			<h2>{@lightspeedto_odoo.process.tips.title}</h2>
-			<div class="cell">
-				<div class="cell-body">
-					<div class="message-helper bgc notice">
-						<h4>{@lightspeedto_odoo.process.tips.performance.title}</h4>
-						<ul>
-							<li>{@lightspeedto_odoo.process.tips.performance.tip1}</li>
-							<li>{@lightspeedto_odoo.process.tips.performance.tip2}</li>
-							<li>{@lightspeedto_odoo.process.tips.performance.tip3}</li>
-						</ul>
+			<!-- Filtres et statistiques -->
+			<div class="content-block">
+				<h2>{lightspeedto_odoo.process.filters_stats}</h2>
+				<div class="cell-flex cell-columns-2">
+					<div class="cell">
+						<div class="cell-header">
+							<h3>{lightspeedto_odoo.process.filters}</h3>
+						</div>
+						<div class="cell-body">
+							<form method="get" action="{U_PROCESS}">
+								<div class="form-element">
+									<label for="status">{common.status}:</label>
+									<select name="status" id="status" class="form-control">
+										<option value="">{common.all}</option>
+										<option value="pending" # IF FILTER_STATUS_PENDING # selected# ENDIF #>{lightspeedto_odoo.status.pending}</option>
+										<option value="processing" # IF FILTER_STATUS_PROCESSING # selected# ENDIF #>{lightspeedto_odoo.status.processing}</option>
+										<option value="completed" # IF FILTER_STATUS_COMPLETED # selected# ENDIF #>{lightspeedto_odoo.status.completed}</option>
+										<option value="failed" # IF FILTER_STATUS_FAILED # selected# ENDIF #>{lightspeedto_odoo.status.failed}</option>
+									</select>
+								</div>
+								<div class="form-element">
+									<label for="mapping">{lightspeedto_odoo.upload.mapping}:</label>
+									<select name="mapping" id="mapping" class="form-control">
+										<option value="">{common.all}</option>
+										# START filter_mappings #
+											<option value="{filter_mappings.ID}" # IF filter_mappings.C_SELECTED # selected# ENDIF #>{filter_mappings.NAME}</option>
+										# END filter_mappings #
+									</select>
+								</div>
+								<div class="form-element">
+									<button type="submit" class="button submit">{lightspeedto_odoo.process.filter}</button>
+									<a href="{U_PROCESS}" class="button">{lightspeedto_odoo.process.reset_filter}</a>
+								</div>
+							</form>
+						</div>
 					</div>
 
-					<div class="message-helper bgc success">
-						<h4>{@lightspeedto_odoo.process.tips.monitoring.title}</h4>
-						<ul>
-							<li>{@lightspeedto_odoo.process.tips.monitoring.tip1}</li>
-							<li>{@lightspeedto_odoo.process.tips.monitoring.tip2}</li>
-							<li>{@lightspeedto_odoo.process.tips.monitoring.tip3}</li>
-						</ul>
-					</div>
-
-					<div class="message-helper bgc warning">
-						<h4>{@lightspeedto_odoo.process.tips.errors.title}</h4>
-						<ul>
-							<li>{@lightspeedto_odoo.process.tips.errors.tip1}</li>
-							<li>{@lightspeedto_odoo.process.tips.errors.tip2}</li>
-							<li>{@lightspeedto_odoo.process.tips.errors.tip3}</li>
-						</ul>
+					<div class="cell">
+						<div class="cell-header">
+							<h3>{lightspeedto_odoo.process.statistics}</h3>
+						</div>
+						<div class="cell-body">
+							<dl class="field-list">
+								<dt>{lightspeedto_odoo.stats.total_uploads}:</dt>
+								<dd>{STATS_TOTAL_UPLOADS}</dd>
+								
+								<dt>{lightspeedto_odoo.stats.completed}:</dt>
+								<dd>{STATS_COMPLETED_UPLOADS}</dd>
+								
+								<dt>{lightspeedto_odoo.stats.failed}:</dt>
+								<dd>{STATS_FAILED_UPLOADS}</dd>
+								
+								<dt>{lightspeedto_odoo.stats.processed_rows}:</dt>
+								<dd>{STATS_TOTAL_PROCESSED_ROWS}</dd>
+								
+								<dt>{lightspeedto_odoo.stats.success_rate}:</dt>
+								<dd>{STATS_SUCCESS_RATE}%</dd>
+							</dl>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		# ENDIF #
 	</div>
 </article>
 
 <script>
 <!--
-function refreshUploadStatus(uploadId) {
-	var row = document.querySelector('.upload-row[data-upload-id="' + uploadId + '"]');
-	if (!row) return;
-
-	var refreshButton = row.querySelector('.button.warning');
-	if (refreshButton) {
-		refreshButton.innerHTML = '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>';
-		refreshButton.disabled = true;
-	}
-
-	fetch(window.location.href, {
-		method: 'GET',
-		headers: {
-			'X-Refresh-Upload': uploadId
-		}
-	})
-	.then(response => response.text())
-	.then(html => {
-		// Extraire la ligne mise à jour
-		var tempDiv = document.createElement('div');
-		tempDiv.innerHTML = html;
-		var newRow = tempDiv.querySelector('.upload-row[data-upload-id="' + uploadId + '"]');
-		
-		if (newRow) {
-			row.innerHTML = newRow.innerHTML;
-		}
-	})
-	.catch(error => {
-		console.error('Erreur lors du rafraîchissement:', error);
-	})
-	.finally(() => {
-		if (refreshButton) {
-			refreshButton.innerHTML = '<i class="fa fa-refresh" aria-hidden="true"></i>';
-			refreshButton.disabled = false;
-		}
-	});
-}
-
-// Auto-refresh pour les uploads en cours
 document.addEventListener('DOMContentLoaded', function() {
-	var processingUploads = document.querySelectorAll('.upload-row .pinned.warning');
-	
-	if (processingUploads.length > 0) {
-		// Rafraîchir toutes les 30 secondes s'il y a des uploads en cours
-		setInterval(function() {
-			processingUploads.forEach(function(statusElement) {
-				var row = statusElement.closest('.upload-row');
-				if (row) {
-					var uploadId = row.dataset.uploadId;
-					refreshUploadStatus(uploadId);
-				}
-			});
-		}, 30000); // 30 secondes
+	// Confirmation de suppression
+	var deleteLinks = document.querySelectorAll('a[data-confirmation="delete-element"]');
+	deleteLinks.forEach(function(link) {
+		link.addEventListener('click', function(e) {
+			if (!confirm('{lightspeedto_odoo.process.delete.confirmation}')) {
+				e.preventDefault();
+				return false;
+			}
+		});
+	});
+
+	// Auto-refresh pour les traitements en cours
+	var processingRows = document.querySelectorAll('.upload-row .fa-spinner');
+	if (processingRows.length > 0) {
+		setTimeout(function() {
+			window.location.reload();
+		}, 5000); // Actualisation toutes les 5 secondes
 	}
 });
 //-->
 </script>
-
-<style>
-.upload-row:hover {
-	background-color: rgba(var(--main-rgb), 0.05);
-}
-
-.file-info {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-.file-info i {
-	font-size: 1.5em;
-	color: var(--success-color);
-}
-
-.progress-container {
-	min-width: 120px;
-}
-
-.progressbar-container {
-	margin-bottom: 0.25rem;
-}
-
-.progress-text {
-	font-size: 0.875em;
-	text-align: center;
-}
-
-.date-info {
-	font-size: 0.875em;
-}
-
-.status-legend {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-}
-
-.legend-item {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	font-size: 0.875em;
-}
-
-.controls {
-	white-space: nowrap;
-}
-
-.controls .button {
-	margin-right: 0.25rem;
-}
-
-@media (max-width: 768px) {
-	.file-info {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 0.25rem;
-	}
-	
-	.progress-container {
-		min-width: auto;
-	}
-	
-	.controls {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem;
-	}
-}
-</style>
